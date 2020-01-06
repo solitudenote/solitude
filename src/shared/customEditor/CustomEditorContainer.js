@@ -10,13 +10,7 @@ const CustomEditorContainer = ({ onMarkdownValueChange }) => {
   }, [editorValue]);
 
   return (
-    <div
-      style={
-        {
-          /*border: "1px solid" */
-        }
-      }
-    >
+    <div>
       <CustomEditor value={editorValue} onValueChange={setEditorValue} />
     </div>
   );
