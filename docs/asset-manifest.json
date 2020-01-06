@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/solitude/static/css/main.8525c558.chunk.css",
+    "main.js": "/solitude/static/js/main.2b56a285.chunk.js",
+    "main.js.map": "/solitude/static/js/main.2b56a285.chunk.js.map",
+    "runtime-main.js": "/solitude/static/js/runtime-main.d5ac4ae1.js",
+    "runtime-main.js.map": "/solitude/static/js/runtime-main.d5ac4ae1.js.map",
+    "static/css/2.5b386a92.chunk.css": "/solitude/static/css/2.5b386a92.chunk.css",
+    "static/js/2.205afa04.chunk.js": "/solitude/static/js/2.205afa04.chunk.js",
+    "static/js/2.205afa04.chunk.js.map": "/solitude/static/js/2.205afa04.chunk.js.map",
+    "index.html": "/solitude/index.html",
+    "precache-manifest.6ceca0c1c950476370a7a704311c8240.js": "/solitude/precache-manifest.6ceca0c1c950476370a7a704311c8240.js",
+    "service-worker.js": "/solitude/service-worker.js",
+    "static/css/2.5b386a92.chunk.css.map": "/solitude/static/css/2.5b386a92.chunk.css.map",
+    "static/css/main.8525c558.chunk.css.map": "/solitude/static/css/main.8525c558.chunk.css.map",
+    "static/js/2.205afa04.chunk.js.LICENSE": "/solitude/static/js/2.205afa04.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d5ac4ae1.js",
+    "static/css/2.5b386a92.chunk.css",
+    "static/js/2.205afa04.chunk.js",
+    "static/css/main.8525c558.chunk.css",
+    "static/js/main.2b56a285.chunk.js"
+  ]
+}
