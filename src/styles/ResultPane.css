@@ -1,0 +1,15 @@
+.result-pane {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 50%;
+  bottom: 0;
+  overflow: auto;
+  padding: 10px;
+  padding-left: 10px;
+  padding-left: 20px;
+  color: #444;
+  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  font-size: 16px;
+  line-height: 1.5em;
+}

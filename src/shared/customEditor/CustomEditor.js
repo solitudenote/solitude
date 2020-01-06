@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
 
-require("codemirror/lib/codemirror.css");
-require("codemirror/theme/neat.css");
-require("codemirror/mode/gfm/gfm");
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/neat.css";
+import "codemirror/mode/gfm/gfm";
+
+import "../../styles/CodeMirror.css";
 
 const CustomEditor = ({ value, onValueChange }) => {
   return (
@@ -15,7 +17,7 @@ const CustomEditor = ({ value, onValueChange }) => {
       }}
       value={value}
       onBeforeChange={(editor, data, value) => {
-        onValueChange({ value });
+        onValueChange(value);
       }}
     />
   );

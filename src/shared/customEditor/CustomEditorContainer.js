@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomEditor from "./CustomEditor.js";
 
-const CustomEditorContainer = () => {
+const CustomEditorContainer = ({ onMarkdownValueChange }) => {
   const [editorValue, setEditorValue] = useState("");
 
+  // Update the global markdown value whenever the markdown changes.
+  useEffect(() => {
+    onMarkdownValueChange(editorValue);
+  }, [editorValue]);
+
   return (
-    <div style={{ border: "1px solid" }}>
+    <div
+      style={
+        {
+          /*border: "1px solid" */
+        }
+      }
+    >
       <CustomEditor value={editorValue} onValueChange={setEditorValue} />
     </div>
   );
