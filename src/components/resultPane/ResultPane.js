@@ -4,13 +4,11 @@ import CodeBlock from "../codeBlock/CodeBlock";
 
 const ResultPane = ({ markdownValue }) => {
   return (
-    <div className="result-pane">
-      <ReactMarkdown
-        source={markdownValue}
-        escapeHtml={false}
-        renderers={{ code: CodeBlock }}
-      />
-    </div>
+    <ReactMarkdown
+      source={markdownValue}
+      escapeHtml={false}
+      renderers={{ code: CodeBlock }}
+    />
   );
 };
 
