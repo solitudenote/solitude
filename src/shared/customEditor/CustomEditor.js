@@ -14,6 +14,7 @@ import "codemirror/mode/go/go";
 import "codemirror/mode/rust/rust";
 import "codemirror/mode/markdown/markdown";
 import "codemirror/mode/gfm/gfm";
+import "codemirror/mode/shell/shell";
 
 import "../../styles/CodeMirror.css";
 

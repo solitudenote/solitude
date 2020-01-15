@@ -6,6 +6,7 @@ const ResultPane = ({ markdownValue }) => {
   return (
     <ReactMarkdown
       source={markdownValue}
+      //source={""}
       escapeHtml={false}
       renderers={{ code: CodeBlock }}
     />

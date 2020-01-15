@@ -32,9 +32,12 @@ function App() {
       <AppbarContainer onViewModeChange={handleViewModeChange} />
       <SplitPane split="vertical" defaultSize={paneSize}>
         <div className="editor-pane">
-          <CustomEditorContainer
-            onMarkdownValueChange={handleMarkdownValueChange}
-          />
+          {paneSize !== "0%" && (
+            <CustomEditorContainer
+              onMarkdownValueChange={handleMarkdownValueChange}
+              initialvalue={markdownValue}
+            />
+          )}
         </div>
         <div className="result-pane">
           <ResultPane markdownValue={markdownValue} />
