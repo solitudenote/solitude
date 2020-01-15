@@ -3,7 +3,16 @@ import { Controlled as CodeMirror } from "react-codemirror2";
 
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/neo.css";
-//import "codemirror/theme/gruvbox-dark.css";
+
+// Import supported languages here
+import "codemirror/mode/javascript/javascript";
+import "codemirror/mode/jsx/jsx";
+import "codemirror/mode/python/python";
+import "codemirror/mode/clike/clike";
+import "codemirror/mode/css/css";
+import "codemirror/mode/go/go";
+import "codemirror/mode/rust/rust";
+import "codemirror/mode/markdown/markdown";
 import "codemirror/mode/gfm/gfm";
 
 import "../../styles/CodeMirror.css";
