@@ -18,6 +18,7 @@ function App() {
   };
 
   const handleViewModeChange = value => {
+    console.log(value);
     if (value == "editor") {
       setPaneSize("100%");
     } else if (value == "split") {
@@ -29,8 +30,9 @@ function App() {
 
   return (
     <div>
+      {console.log(paneSize)}
       <AppbarContainer onViewModeChange={handleViewModeChange} />
-      <SplitPane split="vertical" defaultSize={paneSize}>
+      <SplitPane split="vertical" defaultSize={paneSize} size={paneSize}>
         <div className="editor-pane">
           {paneSize !== "0%" && (
             <CustomEditorContainer

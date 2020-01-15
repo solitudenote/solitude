@@ -18,7 +18,7 @@ const AppbarContainer = ({ onViewModeChange }) => {
         <span>Solitude</span>
       </div>
 
-      <div class="toolbar">
+      <div className="toolbar">
         <MdFormatAlignLeft
           width="22"
           height="22"
