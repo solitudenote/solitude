@@ -59,8 +59,10 @@ function App() {
     <div>
       <ApolloProvider client={client}>
         <AppbarContainer onViewModeChange={handleViewModeChange} />
-        <AccessComponent />
-        {token && <ListRepository />}
+        {/*
+          <AccessComponent />
+          {token && <ListRepository />}
+        */}
         <SplitPane split="vertical" defaultSize={paneSize} size={paneSize}>
           <div className="editor-pane">
             {paneSize !== "0%" && (
