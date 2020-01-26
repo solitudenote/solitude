@@ -10,13 +10,13 @@
   padding: 10px 20px;
 }
 
-.toolbar svg {
+.modebar svg {
     margin: 0 5px;
    cursor: pointer;
 }
-.toolbar svg:first-of-type{
+.modebar svg:first-of-type{
     margin-left: 0;
 }
-.toolbar svg:last-of-type{
+.modebar svg:last-of-type{
     margin-right: 0;
 }

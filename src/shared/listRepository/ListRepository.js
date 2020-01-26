@@ -26,13 +26,7 @@ const ListRepository = () => {
   const { loading, error, data } = useQuery(LIST_REPO_QUERY);
 
   console.log(loading, error, data);
-  return (
-    <>
-      {data && (
-        <span>Total repositories: {data.viewer.repositories.totalCount}</span>
-      )}
-    </>
-  );
+  return <>{data && data.viewer.repositories.totalCount}</>;
 };
 
 export default ListRepository;

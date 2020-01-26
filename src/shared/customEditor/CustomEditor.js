@@ -18,19 +18,30 @@ import "codemirror/mode/shell/shell";
 
 import "../../styles/CodeMirror.css";
 
-const CustomEditor = ({ value, onValueChange }) => {
+const CustomEditor = ({ value, onValueChange, onSelectedEditorChange }) => {
   return (
     <CodeMirror
       options={{
         mode: "gfm",
         lineNumbers: true,
         spellcheck: true,
-        //theme: "gruvbox-dark"
+        //autofocus: true,
         theme: "neo"
       }}
       value={value}
       onBeforeChange={(editor, data, value) => {
         onValueChange(value);
+      }}
+      // TODO
+      // Editor is set to autofocus, and onFocus the editorState will be
+      // updated.
+      // Remove onFocus and add initialize the editorState with a codemirror
+      // instance
+      //onFocus={(editor, data) => {
+      //onSelectedEditorChange(editor);
+      //}}
+      onSelection={(editor, data) => {
+        onSelectedEditorChange(editor);
       }}
       height="100%"
     />
