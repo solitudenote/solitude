@@ -3,7 +3,6 @@ import { Controlled as CodeMirror } from "react-codemirror2";
 
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/neo.css";
-
 // Import supported languages here
 import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/jsx/jsx";
@@ -18,28 +17,24 @@ import "codemirror/mode/shell/shell";
 
 import "../../styles/CodeMirror.css";
 
-const CustomEditor = ({ value, onValueChange, onSelectedEditorChange }) => {
+const CustomEditor = ({
+  onValueChange,
+  onSelectedEditorChange,
+  markdownValue
+}) => {
   return (
     <CodeMirror
       options={{
         mode: "gfm",
         lineNumbers: true,
         spellcheck: true,
-        //autofocus: true,
         theme: "neo"
+        //autofocus: true,
       }}
-      value={value}
+      value={markdownValue}
       onBeforeChange={(editor, data, value) => {
         onValueChange(value);
       }}
-      // TODO
-      // Editor is set to autofocus, and onFocus the editorState will be
-      // updated.
-      // Remove onFocus and add initialize the editorState with a codemirror
-      // instance
-      //onFocus={(editor, data) => {
-      //onSelectedEditorChange(editor);
-      //}}
       onSelection={(editor, data) => {
         onSelectedEditorChange(editor);
       }}
@@ -49,3 +44,12 @@ const CustomEditor = ({ value, onValueChange, onSelectedEditorChange }) => {
 };
 
 export default CustomEditor;
+
+// TODO
+// Editor is set to autofocus, and onFocus the editorState will be
+// updated.
+// Remove onFocus and add initialize the editorState with a codemirror
+// instance
+//onFocus={(editor, data) => {
+//onSelectedEditorChange(editor);
+//}}

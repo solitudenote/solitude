@@ -19,8 +19,9 @@ import { FaGithub } from "react-icons/fa";
 
 import ListRepository from "../../shared/listRepository/ListRepository.js";
 import config from "../../data/config.json";
+import { handleRichTextButtonClick } from "../../utils/utils.js";
 
-const Toolbar = ({ onRichTextButtonClick, token }) => {
+const Toolbar = ({ editorState, token }) => {
   return (
     <div className="toolbar">
       <ul>
@@ -28,49 +29,63 @@ const Toolbar = ({ onRichTextButtonClick, token }) => {
           <AiOutlineFontSize
             width="22"
             height="22"
-            onClick={() => onRichTextButtonClick({ type: "header" })}
+            onClick={() =>
+              handleRichTextButtonClick({ type: "header", editorState })
+            }
           />
         </li>
         <li>
           <AiOutlineBold
             width="22"
             height="22"
-            onClick={() => onRichTextButtonClick({ type: "bold" })}
+            onClick={() =>
+              handleRichTextButtonClick({ type: "bold", editorState })
+            }
           />
         </li>
         <li>
           <AiOutlineItalic
             width="22"
             height="22"
-            onClick={() => onRichTextButtonClick({ type: "italic" })}
+            onClick={() =>
+              handleRichTextButtonClick({ type: "italic", editorState })
+            }
           />
         </li>
         <li>
           <AiOutlineStrikethrough
             width="22"
             height="22"
-            onClick={() => onRichTextButtonClick({ type: "strikethrough" })}
+            onClick={() =>
+              handleRichTextButtonClick({ type: "strikethrough", editorState })
+            }
           />
         </li>
         <li>
           <AiOutlineMinus
             width="22"
             height="22"
-            onClick={() => onRichTextButtonClick({ type: "hr" })}
+            onClick={() =>
+              handleRichTextButtonClick({ type: "hr", editorState })
+            }
           />
         </li>
         <li>
           <AiOutlineTable
             width="22"
             height="22"
-            onClick={() => onRichTextButtonClick({ type: "table" })}
+            onClick={() =>
+              handleRichTextButtonClick({ type: "table", editorState })
+            }
           />
         </li>
         <li>
           <AiOutlineCode
             width="22"
             height="22"
-            onClick={() => onRichTextButtonClick({ type: "code" })}
+            onClick={() =>
+              handleRichTextButtonClick({ type: "code", editorState })
+            }
           />
         </li>
       </ul>
@@ -101,16 +116,16 @@ const Toolbar = ({ onRichTextButtonClick, token }) => {
 
 export default Toolbar;
 
-//<li onClick={() => onRichTextButtonClick({ type: "h1" })}> H1 </li>
-//<li onClick={() => onRichTextButtonClick({ type: "h2" })}> H2 </li>
-//<li onClick={() => onRichTextButtonClick({ type: "h3" })}> H3 </li>
-//<li onClick={() => onRichTextButtonClick({ type: "h4" })}> H4 </li>
-//<li onClick={() => onRichTextButtonClick({ type: "h4" })}> H4 </li>
+//<li onClick={() => handleRichTextButtonClick({ type: "h1", editorState })}> H1 </li>
+//<li onClick={() => handleRichTextButtonClick({ type: "h2", editorState })}> H2 </li>
+//<li onClick={() => handleRichTextButtonClick({ type: "h3", editorState })}> H3 </li>
+//<li onClick={() => handleRichTextButtonClick({ type: "h4", editorState })}> H4 </li>
+//<li onClick={() => handleRichTextButtonClick({ type: "h4", editorState })}> H4 </li>
 //<li>
 //<AiOutlineOrderedList
 //width="22"
 //height="22"
-//onClick={() => onRichTextButtonClick({ type: "ol" })}
+//onClick={() => handleRichTextButtonClick({ type: "ol", editorState })}
 ///>
 //</li>;
 //
@@ -118,7 +133,7 @@ export default Toolbar;
 //<AiOutlineUnorderedList
 //width="22"
 //height="22"
-//onClick={() => onRichTextButtonClick({ type: "ul" })}
+//onClick={() => handleRichTextButtonClick({ type: "ul", editorState })}
 ///>
 //</li>
 //
@@ -126,7 +141,7 @@ export default Toolbar;
 //<AiOutlineUnderline
 //width="22"
 //height="22"
-//onClick={() => onRichTextButtonClick({ type: "underline" })}
+//onClick={() => handleRichTextButtonClick({ type: "underline", editorState })}
 ///>
 //</li>;
 //
@@ -134,6 +149,6 @@ export default Toolbar;
 //<AiOutlineHighlight
 //width="22"
 //height="22"
-//onClick={() => onRichTextButtonClick({ type: "highlight" })}
+//onClick={() => handleRichTextButtonClick({ type: "highlight", editorState })}
 ///>
 //</li>

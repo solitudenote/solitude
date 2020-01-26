@@ -1,38 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { MdFormatAlignLeft } from "react-icons/md";
-import { MdChromeReaderMode } from "react-icons/md";
-import { TiEye } from "react-icons/ti/";
-import "../../styles/Appbar.css";
+import { connect } from "react-redux";
+import { updatePaneSize } from "../../actions";
+import Appbar from "./Appbar.js";
 
-const AppbarContainer = ({ onViewModeChange }) => {
-  const [mode, setMode] = useState("split");
+const mapDispatchToProps = dispatch => ({
+  onViewModeChange: value => dispatch(updatePaneSize(value))
+});
 
-  // Update the app view mode
-  useEffect(() => {
-    onViewModeChange(mode);
-  }, [mode]);
-
-  return (
-    <div className="appbar">
-      <div className="logo">
-        <span>Solitude</span>
-      </div>
-
-      <div className="modebar">
-        <MdFormatAlignLeft
-          width="22"
-          height="22"
-          onClick={() => setMode("editor")}
-        />
-        <MdChromeReaderMode
-          width="22"
-          height="22"
-          onClick={() => setMode("split")}
-        />
-        <TiEye width="22" height="22" onClick={() => setMode("view")} />
-      </div>
-    </div>
-  );
-};
-
-export default AppbarContainer;
+export default connect(null, mapDispatchToProps)(Appbar);
