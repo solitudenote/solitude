@@ -12,81 +12,70 @@ import {
   AiOutlineHighlight,
   AiOutlineTable,
   AiOutlineFontSize,
-  AiOutlineMinus
+  AiOutlineMinus,
+  AiOutlineFolderOpen
 } from "react-icons/ai";
 
 import { FaGithub } from "react-icons/fa";
 
 import ListRepository from "../../shared/listRepository/ListRepository.js";
 import config from "../../data/config.json";
-import { handleRichTextButtonClick } from "../../utils/utils.js";
+import {
+  handleRichTextButtonClick,
+  handleDownloadClick,
+  handleUploadClick
+} from "../../utils/utils.js";
 
-const Toolbar = ({ editorState, token }) => {
+const Toolbar = ({ editorState, token, handleNewFileUpload }) => {
   return (
     <div className="toolbar">
       <ul>
-        <li>
-          <AiOutlineFontSize
-            width="22"
-            height="22"
-            onClick={() =>
-              handleRichTextButtonClick({ type: "header", editorState })
-            }
-          />
+        <li
+          onClick={() =>
+            handleRichTextButtonClick({ type: "header", editorState })
+          }
+        >
+          <AiOutlineFontSize width="22" height="22" />
         </li>
-        <li>
-          <AiOutlineBold
-            width="22"
-            height="22"
-            onClick={() =>
-              handleRichTextButtonClick({ type: "bold", editorState })
-            }
-          />
+        <li
+          onClick={() =>
+            handleRichTextButtonClick({ type: "bold", editorState })
+          }
+        >
+          <AiOutlineBold width="22" height="22" />
         </li>
-        <li>
-          <AiOutlineItalic
-            width="22"
-            height="22"
-            onClick={() =>
-              handleRichTextButtonClick({ type: "italic", editorState })
-            }
-          />
+        <li
+          onClick={() =>
+            handleRichTextButtonClick({ type: "italic", editorState })
+          }
+        >
+          <AiOutlineItalic width="22" height="22" />
         </li>
-        <li>
-          <AiOutlineStrikethrough
-            width="22"
-            height="22"
-            onClick={() =>
-              handleRichTextButtonClick({ type: "strikethrough", editorState })
-            }
-          />
+        <li
+          onClick={() =>
+            handleRichTextButtonClick({ type: "strikethrough", editorState })
+          }
+        >
+          <AiOutlineStrikethrough width="22" height="22" />
         </li>
-        <li>
-          <AiOutlineMinus
-            width="22"
-            height="22"
-            onClick={() =>
-              handleRichTextButtonClick({ type: "hr", editorState })
-            }
-          />
+        <li
+          onClick={() => handleRichTextButtonClick({ type: "hr", editorState })}
+        >
+          <AiOutlineMinus width="22" height="22" />
         </li>
-        <li>
-          <AiOutlineTable
-            width="22"
-            height="22"
-            onClick={() =>
-              handleRichTextButtonClick({ type: "table", editorState })
-            }
-          />
+        <li
+          onClick={() =>
+            handleRichTextButtonClick({ type: "table", editorState })
+          }
+        >
+          <AiOutlineTable width="22" height="22" />
         </li>
-        <li>
-          <AiOutlineCode
-            width="22"
-            height="22"
-            onClick={() =>
-              handleRichTextButtonClick({ type: "code", editorState })
-            }
-          />
+        <li
+          onClick={() =>
+            handleRichTextButtonClick({ type: "code", editorState })
+          }
+        >
+          <AiOutlineCode width="22" height="22" />
         </li>
       </ul>
       <ul>
@@ -95,7 +84,6 @@ const Toolbar = ({ editorState, token }) => {
             // TODO
             // Replace later with a different component
             href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_APP_CLIENT_ID}&scope=repo`}
-            //href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_APP_CLIENT_ID}&scope=repo&redirect_uri=${config.GITHUB_APP_REDIRECT_URI}`}
           >
             <FaGithub width="22" height="20" />
             {token && (
@@ -106,7 +94,19 @@ const Toolbar = ({ editorState, token }) => {
             )}
           </a>
         </li>
-        <li>
+        <li
+          onClick={event =>
+            handleUploadClick({ event: event, handleNewFileUpload })
+          }
+        >
+          <AiOutlineFolderOpen width="22" height="22" />
+        </li>
+        <li
+          onClick={() =>
+            // Change filename later
+            handleDownloadClick({ fileName: "solitude.md", editorState })
+          }
+        >
           <AiOutlineSave width="22" height="22" />
         </li>
       </ul>
@@ -115,40 +115,3 @@ const Toolbar = ({ editorState, token }) => {
 };
 
 export default Toolbar;
-
-//<li onClick={() => handleRichTextButtonClick({ type: "h1", editorState })}> H1 </li>
-//<li onClick={() => handleRichTextButtonClick({ type: "h2", editorState })}> H2 </li>
-//<li onClick={() => handleRichTextButtonClick({ type: "h3", editorState })}> H3 </li>
-//<li onClick={() => handleRichTextButtonClick({ type: "h4", editorState })}> H4 </li>
-//<li onClick={() => handleRichTextButtonClick({ type: "h4", editorState })}> H4 </li>
-//<li>
-//<AiOutlineOrderedList
-//width="22"
-//height="22"
-//onClick={() => handleRichTextButtonClick({ type: "ol", editorState })}
-///>
-//</li>;
-//
-//<li>
-//<AiOutlineUnorderedList
-//width="22"
-//height="22"
-//onClick={() => handleRichTextButtonClick({ type: "ul", editorState })}
-///>
-//</li>
-//
-//<li>
-//<AiOutlineUnderline
-//width="22"
-//height="22"
-//onClick={() => handleRichTextButtonClick({ type: "underline", editorState })}
-///>
-//</li>;
-//
-//<li>
-//<AiOutlineHighlight
-//width="22"
-//height="22"
-//onClick={() => handleRichTextButtonClick({ type: "highlight", editorState })}
-///>
-//</li>

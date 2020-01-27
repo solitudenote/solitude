@@ -1,5 +1,18 @@
 import { isEmpty } from "lodash";
 
+export const readTextFile = file => {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    // Listener
+    reader.onload = e => {
+      resolve(e.target.result);
+    };
+    reader.onerror = e => reject(e);
+
+    reader.readAsText(file);
+  });
+};
+
 export const handleRichTextButtonClick = ({ type = "", editorState }) => {
   // As we don't have the editor state initialized, return null
   if (isEmpty(editorState)) return null;
@@ -73,4 +86,40 @@ export const handleRichTextButtonClick = ({ type = "", editorState }) => {
     default:
       editorState.replaceSelection(selectedText);
   }
+};
+
+// https://stackoverflow.com/a/44661948/6781563
+export const handleDownloadClick = ({ editorState, fileName }) => {
+  const element = document.createElement("a");
+  let markdownValue = "";
+  if (!isEmpty(editorState)) {
+    markdownValue = editorState.getValue();
+  }
+  const file = new Blob([markdownValue], {
+    type: "text/plain"
+  });
+  element.href = URL.createObjectURL(file);
+  element.download = fileName;
+  document.body.appendChild(element); // Required for this to work in FireFox
+  element.click();
+};
+
+// https://github.com/elfrog/apib-editor/blob/master/src/platform/web/app-service.js
+export const handleUploadClick = async ({ event, handleNewFileUpload }) => {
+  const fileSelector = document.createElement("input");
+  fileSelector.type = "file";
+
+  fileSelector.onchange = async e => {
+    const file = e.target.files[0];
+    let fileContent;
+    try {
+      fileContent = await readTextFile(file);
+      handleNewFileUpload(fileContent);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  event.preventDefault();
+  fileSelector.click();
 };

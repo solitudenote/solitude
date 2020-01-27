@@ -5,7 +5,6 @@ import CodeBlock from "../codeBlock/CodeBlock";
 import { connect } from "react-redux";
 
 const ResultPane = ({ markdownValue }) => {
-  console.log(markdownValue);
   return (
     <ReactMarkdown
       source={markdownValue}
