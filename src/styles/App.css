@@ -1,5 +1,14 @@
 body {
-  margin: 0
+  margin: 0;
+  color: inherit;
+  font-size: 1em;
+}
+
+*,
+*::before,
+*::after {
+   -webkit-box-sizing: inherit; 
+   box-sizing: inherit; 
 }
 
 .toolbar {
@@ -33,6 +42,7 @@ body {
 
 .toolbar > ul > li > a {
   display: flex;
+  color: inherit;
 }
 
 .toolbar > ul > li > a:link {

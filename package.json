@@ -29,7 +29,8 @@
     "react-scripts": "3.3.0",
     "react-split-pane": "^0.1.89",
     "react-syntax-highlighter": "^12.2.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 const ResultPane = ({ markdownValue }) => {
   return (
     <ReactMarkdown
+      className={"react-markdown"}
       source={markdownValue}
       //source={""}
       escapeHtml={false}

@@ -17,8 +17,9 @@ import {
 } from "react-icons/ai";
 
 import { FaGithub } from "react-icons/fa";
+import { GoGithubAction } from "react-icons/go";
 
-import ListRepository from "../../shared/listRepository/ListRepository.js";
+import GitHubUser from "../../shared/gitHubUser/GitHubUser.js";
 import config from "../../data/config.json";
 import {
   handleRichTextButtonClick,
@@ -26,7 +27,14 @@ import {
   handleUploadClick
 } from "../../utils/utils.js";
 
-const Toolbar = ({ editorState, token, handleNewFileUpload }) => {
+import CustomModal from "../../shared/customModal/CustomModal.js";
+
+const Toolbar = ({
+  editorState,
+  token,
+  handleNewFileUpload,
+  handleModalOpen
+}) => {
   return (
     <div className="toolbar">
       <ul>
@@ -79,21 +87,19 @@ const Toolbar = ({ editorState, token, handleNewFileUpload }) => {
         </li>
       </ul>
       <ul>
-        <li>
-          <a
-            // TODO
-            // Replace later with a different component
-            href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_APP_CLIENT_ID}&scope=repo`}
-          >
-            <FaGithub width="22" height="20" />
-            {token && (
-              <>
-                {" "}
-                (<ListRepository />)
-              </>
-            )}
-          </a>
-        </li>
+        {!token ? (
+          <li>
+            <a
+              href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_APP_CLIENT_ID}&scope=repo`}
+            >
+              <FaGithub width="22" height="20" />
+            </a>
+          </li>
+        ) : (
+          <li onClick={() => handleModalOpen({ modalType: "GIT_MODAL" })}>
+            <GoGithubAction width="22" height="20" /> (<GitHubUser />)
+          </li>
+        )}
         <li
           onClick={event =>
             handleUploadClick({ event: event, handleNewFileUpload })

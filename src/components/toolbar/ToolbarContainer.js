@@ -1,10 +1,12 @@
 import React from "react";
 import Toolbar from "./Toolbar.js";
 import { connect } from "react-redux";
-import { updateMarkdownValue } from "../../actions";
+import { updateMarkdownValue, showModal, hideModal } from "../../actions";
 
 const mapDispatchToProps = dispatch => ({
-  handleNewFileUpload: value => dispatch(updateMarkdownValue(value))
+  handleNewFileUpload: value => dispatch(updateMarkdownValue(value)),
+  handleModalOpen: modalState => dispatch(showModal(modalState))
+  //handleModalClose: modalState => dispatch(hideModal(modalState))
 });
 
 const mapStateToProps = state => ({

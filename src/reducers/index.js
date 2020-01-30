@@ -3,10 +3,12 @@ import editor from "./editor.js";
 import splitPane from "./splitPane.js";
 import markdownValue from "./markdown.js";
 import auth from "./auth.js";
+import modal from "./modal.js";
 
 export default combineReducers({
   markdownValue,
   editor,
   splitPane,
+  modal,
   auth
 });

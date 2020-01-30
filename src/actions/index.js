@@ -17,3 +17,13 @@ export const updateToken = token => ({
   type: "UPDATE_TOKEN",
   token
 });
+
+export const showModal = ({ modalType, modalProps }) => ({
+  type: "SHOW_MODAL",
+  modalType,
+  modalProps
+});
+
+export const hideModal = () => ({
+  type: "HIDE_MODAL"
+});
