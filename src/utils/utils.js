@@ -123,3 +123,55 @@ export const handleUploadClick = async ({ event, handleNewFileUpload }) => {
   event.preventDefault();
   fileSelector.click();
 };
+
+// TODO
+// Create a custom hook
+export const fetchAllRepositories = async ({
+  client,
+  setLoading,
+  setData,
+  query
+}) => {
+  let hasNextPage = true;
+  let cursor = null;
+  let allResults = null;
+
+  while (hasNextPage) {
+    const { data } = await client.query({
+      query: query,
+      variables: {
+        cursor
+      },
+      fetchPolicy: "no-cache"
+    });
+
+    if (isEmpty(allResults)) {
+      allResults = data;
+    } else {
+      allResults.viewer.repositories.pageInfo =
+        data.viewer.repositories.pageInfo;
+      allResults.viewer.repositories.nodes = [
+        ...allResults.viewer.repositories.nodes,
+        ...data.viewer.repositories.nodes
+      ];
+    }
+
+    hasNextPage = data.viewer.repositories.pageInfo.hasNextPage;
+    cursor = data.viewer.repositories.pageInfo.endCursor;
+  }
+  setLoading(false);
+  setData(allResults);
+};
+
+export const findSolitudeRepository = data => {
+  // Search for solitude created repository
+  // TODO
+  // Use a better method
+  //
+  // Check for repository named `{login}-solidute-notes`
+  //const solitude_generated_repo = `{data.viewer.login}-solitude-notes`;
+  const expected_repo = data.viewer.repositories.nodes.find(
+    repo => repo.name === "solitude"
+  );
+  return expected_repo;
+};

@@ -96,9 +96,14 @@ const Toolbar = ({
             </a>
           </li>
         ) : (
-          <li onClick={() => handleModalOpen({ modalType: "GIT_MODAL" })}>
-            <GoGithubAction width="22" height="20" /> (<GitHubUser />)
-          </li>
+          <>
+            <li>
+              <GitHubUser />
+            </li>
+            <li onClick={() => handleModalOpen({ modalType: "GIT_MODAL" })}>
+              <GoGithubAction width="22" height="20" />
+            </li>
+          </>
         )}
         <li
           onClick={event =>

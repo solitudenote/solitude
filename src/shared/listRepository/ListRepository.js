@@ -25,19 +25,24 @@ const LIST_REPO_QUERY = gql`
 `;
 
 const ListRepository = () => {
-  const { loading, error, data } = useQuery(LIST_REPO_QUERY);
+  const { loading, error, data } = useQuery(LIST_REPO_QUERY, {
+    fetchPolicy: "no-cache"
+  });
 
   console.log(loading, error, data);
   let repositories = !loading ? data.viewer.repositories : {};
-  //return <>{data && data.viewer.repositories.totalCount}</>;
-  //debugger;
   return (
     <>
       {!loading && (
-        <ul>
-          {repositories.nodes &&
-            repositories.nodes.map(repo => <li key={repo.id}>{repo.name}</li>)}
-        </ul>
+        <div>
+          <span>{repositories.totalCount}</span>
+          <ul>
+            {repositories.nodes &&
+              repositories.nodes.map(repo => (
+                <li key={repo.id}>{repo.name}</li>
+              ))}
+          </ul>
+        </div>
       )}
     </>
   );
@@ -45,4 +50,54 @@ const ListRepository = () => {
 
 export default ListRepository;
 
-//repositories.nodes.map(repo => {<li key={repo.id}> {repo.name}></li>})
+
+
+//const FindSolitudeRepository = () => {
+  ////const [repositories, setRepositories] = useState({});
+  //const { loading, error, data, fetchMore } = useQuery(LIST_REPO_QUERY, {
+    //fetchPolicy: "no-cache"
+  //});
+
+  //let repositories = !loading ? data.viewer.repositories : {};
+  ////setRepositories(repositories);
+  //console.log(repositories);
+  //return (
+    //<div
+      //onClick={() => {
+        //console.log("Clicked");
+        //fetchMore({
+          //variables: {
+            //cursor: repositories.pageInfo.endCursor
+          //},
+          //updateQuery: (previousResult, { fetchMoreResult }) => {
+            ////const pageInfo = fetchMoreResult.viewer.repositories.pageInfo;
+            //const newRepositories = fetchMoreResult.viewer.repositories.nodes;
+
+            //return repositories.length
+              //? {
+                  //__typename: previousResult.viewer.repositories.__typename,
+                  //repositories: [
+                    //...previousResult.viewer.repositories,
+                    //...newRepositories
+                  //]
+                //}
+              //: previousResult;
+          //}
+        //});
+      //}}
+    //>
+      //{!loading && (
+        //<div>
+          //<ul>
+            //{repositories.nodes &&
+              //repositories.nodes.map(repo => (
+                //<li key={repo.id}>{repo.name}</li>
+              //))}
+          //</ul>
+        //</div>
+      //)}
+    //</div>
+  //);
+//};
+
+//export default FindSolitudeRepository;
