@@ -163,15 +163,20 @@ export const fetchAllRepositories = async ({
   setData(allResults);
 };
 
+// Not used anymore. Can be removed
 export const findSolitudeRepository = data => {
-  // Search for solitude created repository
-  // TODO
-  // Use a better method
-  //
-  // Check for repository named `{login}-solidute-notes`
-  //const solitude_generated_repo = `{data.viewer.login}-solitude-notes`;
-  const expected_repo = data.viewer.repositories.nodes.find(
-    repo => repo.name === "solitude"
+  const solitudeGeneratedRepo = `{data.viewer.login}-solitude-notes`;
+  const expectedRepo = data.viewer.repositories.nodes.find(
+    repo => repo.name === solitudeGeneratedRepo
   );
-  return expected_repo;
+  return expectedRepo;
+};
+
+export const calculateSolitudeRepoName = ownerName => {
+  return `${ownerName}-solitude-notes`;
+};
+
+export const buildGitHubLink = clientId => {
+  const gitHubLink = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo`;
+  return gitHubLink;
 };

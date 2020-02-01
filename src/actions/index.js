@@ -18,6 +18,11 @@ export const updateToken = token => ({
   token
 });
 
+export const updateUser = userName => ({
+  type: "UPDATE_GIT_USER",
+  userName
+});
+
 export const showModal = ({ modalType, modalProps }) => ({
   type: "SHOW_MODAL",
   modalType,
@@ -26,4 +31,9 @@ export const showModal = ({ modalType, modalProps }) => ({
 
 export const hideModal = () => ({
   type: "HIDE_MODAL"
+});
+
+export const registerSolitudeRepo = repo => ({
+  type: "REGISTER_SOLITUDE_REPO",
+  repo
 });

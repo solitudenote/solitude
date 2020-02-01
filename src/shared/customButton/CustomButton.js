@@ -1,10 +1,11 @@
 import React from "react";
+import { Button } from "antd";
 
-const CustomButton = ({ onClick, style, label }) => {
+const CustomButton = ({ onClick, style, label, ...props }) => {
   return (
-    <button onClick={e => onClick(e)} style={style}>
+    <Button onClick={e => onClick(e)} style={style}>
       {label}
-    </button>
+    </Button>
   );
 };
 

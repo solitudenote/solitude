@@ -1,7 +1,9 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { useDispatch } from "react-redux";
 import { gql } from "apollo-boost";
 import { Avatar } from "antd";
+import { updateUser } from "../../actions";
 
 const LIST_REPO_QUERY = gql`
   {
@@ -14,8 +16,13 @@ const LIST_REPO_QUERY = gql`
 
 const ListRepository = () => {
   const { loading, error, data } = useQuery(LIST_REPO_QUERY);
+  const dispatch = useDispatch();
 
-  //return <>{data && data.viewer.login}</>
+  // Update git user name in redux
+  if (data && data.viewer.login) {
+    dispatch(updateUser(data.viewer.login));
+  }
+
   return <Avatar src={data && data.viewer.avatarUrl} size="small" />;
 };
 

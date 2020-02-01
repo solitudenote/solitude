@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { useApolloClient } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import {
+  fetchAllRepositories,
+  findSolitudeRepository
+} from "../../utils/utils.js";
 
 const LIST_REPO_QUERY = gql`
-  {
+  query Repositories($cursor: String) {
     viewer {
       login
-      repositories(first: 100) {
+      repositories(first: 50, after: $cursor) {
         totalCount
         pageInfo {
           endCursor
@@ -25,20 +30,43 @@ const LIST_REPO_QUERY = gql`
 `;
 
 const ListRepository = () => {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const [solitudeRepo, setSolitudeRepo] = useState();
+
+  const client = useApolloClient();
+
+  useEffect(() => {
+    fetchAllRepositories({
+      client,
+      setData,
+      setLoading,
+      query: LIST_REPO_QUERY
+    });
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      setSolitudeRepo(findSolitudeRepository(data));
+    }
+  }, [data]);
+  /*
   const { loading, error, data } = useQuery(LIST_REPO_QUERY, {
     fetchPolicy: "no-cache"
   });
 
   console.log(loading, error, data);
   let repositories = !loading ? data.viewer.repositories : {};
+  */
+
   return (
     <>
-      {!loading && (
+      {!loading && data && (
         <div>
-          <span>{repositories.totalCount}</span>
+          <span>{data.viewer.repositories.totalCount}</span>
           <ul>
-            {repositories.nodes &&
-              repositories.nodes.map(repo => (
+            {data.viewer.repositories.nodes &&
+              data.viewer.repositories.nodes.map(repo => (
                 <li key={repo.id}>{repo.name}</li>
               ))}
           </ul>
@@ -49,55 +77,3 @@ const ListRepository = () => {
 };
 
 export default ListRepository;
-
-
-
-//const FindSolitudeRepository = () => {
-  ////const [repositories, setRepositories] = useState({});
-  //const { loading, error, data, fetchMore } = useQuery(LIST_REPO_QUERY, {
-    //fetchPolicy: "no-cache"
-  //});
-
-  //let repositories = !loading ? data.viewer.repositories : {};
-  ////setRepositories(repositories);
-  //console.log(repositories);
-  //return (
-    //<div
-      //onClick={() => {
-        //console.log("Clicked");
-        //fetchMore({
-          //variables: {
-            //cursor: repositories.pageInfo.endCursor
-          //},
-          //updateQuery: (previousResult, { fetchMoreResult }) => {
-            ////const pageInfo = fetchMoreResult.viewer.repositories.pageInfo;
-            //const newRepositories = fetchMoreResult.viewer.repositories.nodes;
-
-            //return repositories.length
-              //? {
-                  //__typename: previousResult.viewer.repositories.__typename,
-                  //repositories: [
-                    //...previousResult.viewer.repositories,
-                    //...newRepositories
-                  //]
-                //}
-              //: previousResult;
-          //}
-        //});
-      //}}
-    //>
-      //{!loading && (
-        //<div>
-          //<ul>
-            //{repositories.nodes &&
-              //repositories.nodes.map(repo => (
-                //<li key={repo.id}>{repo.name}</li>
-              //))}
-          //</ul>
-        //</div>
-      //)}
-    //</div>
-  //);
-//};
-
-//export default FindSolitudeRepository;

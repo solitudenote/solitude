@@ -19,7 +19,7 @@ import {
 import { FaGithub } from "react-icons/fa";
 import { GoGithubAction } from "react-icons/go";
 
-import GitHubUser from "../../shared/gitHubUser/GitHubUser.js";
+import GitHubUser from "../../components/gitHubUser/GitHubUser.js";
 import config from "../../data/config.json";
 import {
   handleRichTextButtonClick,
@@ -97,9 +97,6 @@ const Toolbar = ({
           </li>
         ) : (
           <>
-            <li>
-              <GitHubUser />
-            </li>
             <li onClick={() => handleModalOpen({ modalType: "GIT_MODAL" })}>
               <GoGithubAction width="22" height="20" />
             </li>
@@ -120,6 +117,11 @@ const Toolbar = ({
         >
           <AiOutlineSave width="22" height="22" />
         </li>
+        {token && (
+          <li>
+            <GitHubUser />
+          </li>
+        )}
       </ul>
     </div>
   );

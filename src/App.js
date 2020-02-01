@@ -15,7 +15,7 @@ import "./styles/App.css";
 import "./styles/Resizer.css";
 import "./styles/ResultPane.css";
 
-function App({ onTokenChange }) {
+function App({ onTokenChange, authToken }) {
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -53,9 +53,9 @@ function App({ onTokenChange }) {
   );
 }
 
-//const mapStateToProps = state => ({
-//editorState: state.editor
-//});
+const mapStateToProps = state => ({
+  authToken: state.auth.token
+});
 
 const mapDispatchToProps = dispatch => ({
   onTokenChange: token => dispatch(updateToken(token))
