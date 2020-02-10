@@ -10,7 +10,7 @@ import { registerSolitudeRepo } from "../../actions";
 import { buildGitHubLink } from "../../utils/utils.js";
 
 const GitModalContainer = ({
-  token,
+  auth,
   isOpen,
   modalProps,
   hideModal,
@@ -35,10 +35,15 @@ const GitModalContainer = ({
       isModalOpen={isOpen}
       modalTitle={"Your notes"}
       modalBody={
-        token ? (
+        auth.token ? (
           <div>
             <FindSolitudeRepository updateRepository={updateRepository} />
-            {!repository.loading && !repository.id && <CreateRepository />}
+            {!repository.loading && !repository.name && (
+              <CreateRepository
+                auth={auth}
+                updateRepository={updateRepository}
+              />
+            )}
           </div>
         ) : (
           <CustomButton
@@ -53,7 +58,7 @@ const GitModalContainer = ({
 };
 
 const mapStateToProps = state => ({
-  token: state.auth.token,
+  auth: state.auth,
   repository: state.repository
 });
 

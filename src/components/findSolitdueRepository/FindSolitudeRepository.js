@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { useSelector } from "react-redux";
 import { gql } from "apollo-boost";
 import { calculateSolitudeRepoName } from "../../utils/utils.js";
-//import { registerSolitudeRepo } from "../../actions";
+import NotesList from "../notesList/NoteList.js";
 
 const FIND_SOLITUDE_NOTE_REPO = gql`
   query SolitudeNoteRepo($owner: String!, $name: String!) {
@@ -11,6 +11,23 @@ const FIND_SOLITUDE_NOTE_REPO = gql`
       id
       name
       nameWithOwner
+      templateRepository {
+        id
+        name
+      }
+      notes: object(expression: "master:notes/") {
+        ... on Tree {
+          entries {
+            oid
+            object {
+              ... on Blob {
+                text
+              }
+            }
+            name
+          }
+        }
+      }
     }
   }
 `;
@@ -21,7 +38,6 @@ const FindSolitudeRepository = ({ updateRepository }) => {
   const variables = {
     owner,
     name: repoName
-    //name: "rudra.dev"
   };
 
   const { loading, error, data } = useQuery(FIND_SOLITUDE_NOTE_REPO, {
@@ -54,7 +70,10 @@ const FindSolitudeRepository = ({ updateRepository }) => {
           {!data ? (
             <p>No solitude managed repository exists!</p>
           ) : (
-            <span>{data.repository.nameWithOwner}</span>
+            <div>
+              <h3>{data.repository.nameWithOwner}</h3>
+              <NotesList notes={data.repository.notes.entries} />
+            </div>
           )}
         </>
       ) : (

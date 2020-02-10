@@ -18,9 +18,10 @@ export const updateToken = token => ({
   token
 });
 
-export const updateUser = userName => ({
+export const updateUser = ({ login, id }) => ({
   type: "UPDATE_GIT_USER",
-  userName
+  id,
+  login
 });
 
 export const showModal = ({ modalType, modalProps }) => ({

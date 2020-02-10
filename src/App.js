@@ -23,16 +23,16 @@ function App({ onTokenChange, authToken }) {
       window.location.href.match(/\?code=(.*)/) &&
       window.location.href.match(/\?code=(.*)/)[1];
     if (code) {
-      fetch(`https://prose-gatekeeper.glitch.me/authenticate/${code}`)
+      fetch(`https://solitudenote-gitkeeper.glitch.me/authenticate/${code}`)
         .then(response => response.json())
-        .then(({ error, token }) => {
+        .then(({ error, access_token }) => {
           if (error) {
             throw Error(error);
           }
-          console.log(token);
-          setToken(token);
+          console.log(access_token);
+          setToken(access_token);
           // Store token in redux
-          onTokenChange(token);
+          onTokenChange(access_token);
         })
         .catch(error => {
           console.log(error);

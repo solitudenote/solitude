@@ -3,7 +3,7 @@ const auth = (state = { token: "" }, action) => {
     case "UPDATE_TOKEN":
       return { ...state, token: action.token };
     case "UPDATE_GIT_USER":
-      return { ...state, userName: action.userName };
+      return { ...state, userName: action.login, id: action.id };
     default:
       return state;
   }

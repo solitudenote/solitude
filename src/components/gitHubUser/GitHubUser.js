@@ -8,6 +8,7 @@ import { updateUser } from "../../actions";
 const LIST_REPO_QUERY = gql`
   {
     viewer {
+      id
       login
       avatarUrl
     }
@@ -20,7 +21,7 @@ const ListRepository = () => {
 
   // Update git user name in redux
   if (data && data.viewer.login) {
-    dispatch(updateUser(data.viewer.login));
+    dispatch(updateUser(data.viewer));
   }
 
   return <Avatar src={data && data.viewer.avatarUrl} size="small" />;

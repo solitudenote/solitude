@@ -180,3 +180,15 @@ export const buildGitHubLink = clientId => {
   const gitHubLink = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo`;
   return gitHubLink;
 };
+
+export const buildRepositoryCreationInput = (
+  repositoryId,
+  ownerId,
+  ownerName
+) => {
+  return {
+    repoName: `${ownerName}-solitude-notes`,
+    templateRepositoryId: repositoryId,
+    ownerId
+  };
+};
