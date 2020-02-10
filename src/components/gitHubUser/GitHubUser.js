@@ -19,7 +19,7 @@ const ListRepository = () => {
   const { loading, error, data } = useQuery(LIST_REPO_QUERY);
   const dispatch = useDispatch();
 
-  // Update git user name in redux
+  // Update git user name in redux store
   if (data && data.viewer.login) {
     dispatch(updateUser(data.viewer));
   }

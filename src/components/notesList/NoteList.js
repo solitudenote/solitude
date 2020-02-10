@@ -5,6 +5,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { useSelector, useDispatch } from "react-redux";
 import { updateMarkdownValue, hideModal } from "../../actions";
 import { calculateSolitudeRepoName } from "../../utils/utils.js";
+import CustomButton from "../../shared/customButton/CustomButton.js";
+import CustomTag from "../../shared/customTag/CustomTag.js";
 
 const LOAD_NOTE = gql`
   query LoadNote($owner: String!, $name: String!, $expression: String!) {
@@ -16,6 +18,7 @@ const LOAD_NOTE = gql`
         ... on Blob {
           text
           byteSize
+          commitUrl
         }
       }
     }
@@ -69,10 +72,34 @@ const NoteList = ({ notes }) => {
       renderItem={item => (
         <List.Item
           key={item.oid}
-          onClick={() => setSelectedNote(item)}
-          style={{ cursor: "pointer" }}
+          actions={[
+            <CustomTag
+              color="cyan"
+              key="note-edit"
+              onClick={() => setSelectedNote(item)}
+              label="edit"
+            />,
+            <CustomTag
+              key="note-sync"
+              color="green"
+              key="note-save"
+              onClick={() => setSelectedNote(item)}
+              label="save"
+            />,
+            <CustomTag
+              key="note-sync"
+              color="red"
+              key="note-delete"
+              onClick={() => setSelectedNote(item)}
+              label="delete"
+            />
+          ]}
+          style={{
+            display: "flex",
+            justifyContent: "space-between"
+          }}
         >
-          {item.name}
+          <div>{item.name}</div>
         </List.Item>
       )}
     />
@@ -80,27 +107,3 @@ const NoteList = ({ notes }) => {
 };
 
 export default NoteList;
-
-/*
-    <List
-      renderItem={item => (
-        <List.Item
-          key={item.oid}
-          onClick={() => console.log(item.name)}
-          style={{ cursor: "pointer" }}
-        >
-          {item.name}
-        </List.Item>
-      )}
-    />
-
-    <CustomList
-      bordered={true}
-      split={true}
-      dataSource={notes}
-      listItemKeyValueKey="name"
-      listItemKeyId="oid"
-      listItemStyles={{ cursor: "pointer" }}
-      onListItemClick={() => alert("clicked")}
-    />
-*/
