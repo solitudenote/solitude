@@ -192,3 +192,29 @@ export const buildRepositoryCreationInput = (
     ownerId
   };
 };
+
+export const buildNoteList = notes => {
+  let noteList = [];
+  notes.forEach(note => {
+    const indexNote = note.object.entries.find(
+      entry => entry.name === "index.md"
+    );
+
+    noteList = [
+      ...noteList,
+      {
+        name: note.name,
+        oid: note.oid,
+        text: indexNote.object.text,
+        sha: indexNote.oid
+      }
+    ];
+  });
+  return noteList;
+};
+
+export const buildRestUrl = (method, owner, repoName, path) => {
+  if (method === "DELETE") {
+    return `https://api.github.com/repos/${owner}/${repoName}/contents/${path}`;
+  }
+};

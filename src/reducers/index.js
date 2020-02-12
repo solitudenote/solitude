@@ -5,6 +5,7 @@ import markdownValue from "./markdown.js";
 import auth from "./auth.js";
 import modal from "./modal.js";
 import repository from "./repository.js";
+import notes from "./notes.js";
 
 export default combineReducers({
   markdownValue,
@@ -12,5 +13,6 @@ export default combineReducers({
   splitPane,
   modal,
   auth,
-  repository
+  repository,
+  notes
 });

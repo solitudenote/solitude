@@ -1,30 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { gql } from "apollo-boost";
-import { calculateSolitudeRepoName } from "../../utils/utils.js";
-import NotesList from "../notesList/NoteList.js";
+import { calculateSolitudeRepoName, buildNoteList } from "../../utils/utils.js";
+import NoteListContainer from "../noteList/NoteListContainer.js";
+import { isEmpty } from "lodash";
 
 const FIND_SOLITUDE_NOTE_REPO = gql`
-  query SolitudeNoteRepo($owner: String!, $name: String!) {
+  query LoadNote($owner: String!, $name: String!, $expression: String!) {
     repository(owner: $owner, name: $name) {
       id
       name
       nameWithOwner
-      templateRepository {
-        id
-        name
-      }
-      notes: object(expression: "master:notes/") {
+      notes: object(expression: $expression) {
         ... on Tree {
           entries {
+            name
             oid
             object {
-              ... on Blob {
-                text
+              ... on Tree {
+                entries {
+                  name
+                  oid
+                  object {
+                    id
+                    ... on Blob {
+                      text
+                    }
+                  }
+                }
               }
+              commitUrl
             }
-            name
           }
         }
       }
@@ -32,12 +39,14 @@ const FIND_SOLITUDE_NOTE_REPO = gql`
   }
 `;
 
-const FindSolitudeRepository = ({ updateRepository }) => {
+const FindSolitudeRepository = ({ updateRepository, updateNotesList }) => {
   const owner = useSelector(state => state.auth.userName);
+  const dispatch = useDispatch();
   const repoName = calculateSolitudeRepoName(owner);
   const variables = {
     owner,
-    name: repoName
+    name: repoName,
+    expression: "master:notes/"
   };
 
   const { loading, error, data } = useQuery(FIND_SOLITUDE_NOTE_REPO, {
@@ -47,7 +56,12 @@ const FindSolitudeRepository = ({ updateRepository }) => {
 
   useEffect(() => {
     const onCompleted = data => {
-      const { id, name, nameWithOwner } = data.repository;
+      const { id, name, nameWithOwner, notes } = data.repository;
+      let noteList = [];
+      if (!isEmpty(notes)) {
+        noteList = buildNoteList(notes["entries"]);
+      }
+      updateNotesList(noteList);
       updateRepository({ id, name, nameWithOwner, loading });
     };
     const onError = error => {
@@ -72,7 +86,7 @@ const FindSolitudeRepository = ({ updateRepository }) => {
           ) : (
             <div>
               <h3>{data.repository.nameWithOwner}</h3>
-              <NotesList notes={data.repository.notes.entries} />
+              <NoteListContainer />
             </div>
           )}
         </>
@@ -84,3 +98,34 @@ const FindSolitudeRepository = ({ updateRepository }) => {
 };
 
 export default FindSolitudeRepository;
+
+// Old list github list
+/*
+const FIND_SOLITUDE_NOTE_REPO = gql`
+  query SolitudeNoteRepo($owner: String!, $name: String!) {
+    repository(owner: $owner, name: $name) {
+      id
+      name
+      nameWithOwner
+      templateRepository {
+        id
+        name
+      }
+      notes: object(expression: "master:notes/") {
+        ... on Tree {
+          entries {
+            oid
+            object {
+              ... on Blob {
+                text
+                commitUrl
+              }
+            }
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+*/

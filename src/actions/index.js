@@ -38,3 +38,8 @@ export const registerSolitudeRepo = repo => ({
   type: "REGISTER_SOLITUDE_REPO",
   repo
 });
+
+export const updateNoteList = list => ({
+  type: "UPDATE_NOTE_LIST",
+  list
+});

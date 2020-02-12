@@ -6,7 +6,7 @@ import CustomModal from "../../shared/customModal/CustomModal.js";
 import CustomButton from "../../shared/customButton/CustomButton.js";
 import FindSolitudeRepository from "../../components/findSolitdueRepository/FindSolitudeRepository.js";
 import CreateRepository from "../../components/createRepository/CreateRepository.js";
-import { registerSolitudeRepo } from "../../actions";
+import { registerSolitudeRepo, updateNoteList } from "../../actions";
 import { buildGitHubLink } from "../../utils/utils.js";
 
 const GitModalContainer = ({
@@ -15,6 +15,7 @@ const GitModalContainer = ({
   modalProps,
   hideModal,
   updateRepository,
+  updateNotesList,
   repository
 }) => {
   const onGitConnectClick = e => {
@@ -37,7 +38,10 @@ const GitModalContainer = ({
       modalBody={
         auth.token ? (
           <div>
-            <FindSolitudeRepository updateRepository={updateRepository} />
+            <FindSolitudeRepository
+              updateRepository={updateRepository}
+              updateNotesList={updateNotesList}
+            />
             {!repository.loading && !repository.name && (
               <CreateRepository
                 auth={auth}
@@ -64,7 +68,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   hideModal: () => dispatch(hideModal()),
-  updateRepository: repo => dispatch(registerSolitudeRepo(repo))
+  updateRepository: repo => dispatch(registerSolitudeRepo(repo)),
+  updateNotesList: notesList => dispatch(updateNoteList(notesList))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GitModalContainer);
