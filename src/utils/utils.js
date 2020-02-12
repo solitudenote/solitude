@@ -214,7 +214,10 @@ export const buildNoteList = notes => {
 };
 
 export const buildRestUrl = (method, owner, repoName, path) => {
-  if (method === "DELETE") {
+  if (method === "DELETE_FILE") {
+    return `https://api.github.com/repos/${owner}/${repoName}/contents/${path}`;
+  }
+  if (method === "CREATE_FILE") {
     return `https://api.github.com/repos/${owner}/${repoName}/contents/${path}`;
   }
 };

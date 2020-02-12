@@ -1,48 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { List } from "antd";
-import CustomButton from "../../shared/customButton/CustomButton.js";
 import CustomTag from "../../shared/customTag/CustomTag.js";
+import { Input } from "antd";
+const { Search } = Input;
 
-const NoteList = ({ notes, loadNote, deleteNote, saveNote }) => {
+const NoteList = ({ notes, loadNote, deleteNote, saveNote, createNote }) => {
+  const [noteName, setNoteName] = useState("");
   return (
-    <List
-      bordered={true}
-      split={true}
-      dataSource={notes}
-      renderItem={item => (
-        <List.Item
-          key={item.oid}
-          actions={[
-            <CustomTag
-              color="cyan"
-              key="note-edit"
-              onClick={() => loadNote(item)}
-              label="edit"
-            />,
-            <CustomTag
-              key="note-sync"
-              color="green"
-              key="note-save"
-              onClick={() => saveNote(item)}
-              label="save"
-            />,
-            <CustomTag
-              key="note-sync"
-              color="red"
-              key="note-delete"
-              onClick={() => deleteNote(item)}
-              label="delete"
-            />
-          ]}
-          style={{
-            display: "flex",
-            justifyContent: "space-between"
-          }}
-        >
-          <div>{item.name}</div>
-        </List.Item>
-      )}
-    />
+    <div>
+      <List
+        bordered={true}
+        split={true}
+        dataSource={notes}
+        renderItem={item => (
+          <List.Item
+            key={item.oid}
+            actions={[
+              <CustomTag
+                color="cyan"
+                key="note-edit"
+                onClick={() => loadNote(item)}
+                label="edit"
+              />,
+              <CustomTag
+                key="note-sync"
+                color="green"
+                key="note-save"
+                onClick={() => createNote()}
+                label="save"
+              />,
+              <CustomTag
+                key="note-sync"
+                color="red"
+                key="note-delete"
+                onClick={() => deleteNote(item)}
+                label="delete"
+              />
+            ]}
+            style={{
+              display: "flex",
+              justifyContent: "space-between"
+            }}
+          >
+            <div>{item.name}</div>
+          </List.Item>
+        )}
+      />
+      <br />
+      <Search
+        enterButton="Add Note"
+        size="medium"
+        value={noteName}
+        onChange={event => setNoteName(event.target.value)}
+        onSearch={value => {
+          value && createNote(value);
+          setNoteName("");
+        }}
+      />
+    </div>
   );
 };
 

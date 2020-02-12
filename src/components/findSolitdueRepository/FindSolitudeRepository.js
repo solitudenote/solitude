@@ -40,6 +40,7 @@ const FIND_SOLITUDE_NOTE_REPO = gql`
 `;
 
 const FindSolitudeRepository = ({ updateRepository, updateNotesList }) => {
+  const [reloadNotes, setReloadNotes] = useState(true);
   const owner = useSelector(state => state.auth.userName);
   const dispatch = useDispatch();
   const repoName = calculateSolitudeRepoName(owner);
@@ -49,7 +50,7 @@ const FindSolitudeRepository = ({ updateRepository, updateNotesList }) => {
     expression: "master:notes/"
   };
 
-  const { loading, error, data } = useQuery(FIND_SOLITUDE_NOTE_REPO, {
+  const { loading, error, data, refetch } = useQuery(FIND_SOLITUDE_NOTE_REPO, {
     variables,
     fetchPolicy: "no-cache"
   });
@@ -86,7 +87,7 @@ const FindSolitudeRepository = ({ updateRepository, updateNotesList }) => {
           ) : (
             <div>
               <h3>{data.repository.nameWithOwner}</h3>
-              <NoteListContainer />
+              <NoteListContainer refetchList={refetch} />
             </div>
           )}
         </>
