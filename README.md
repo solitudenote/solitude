@@ -1,4 +1,11 @@
-# Solitude
+```
+        .▄▄ ·       ▄▄▌  ▪  ▄▄▄▄▄▄• ▄▌·▄▄▄▄  ▄▄▄ .
+        ▐█ ▀. ▪     ██•  ██ •██  █▪██▌██▪ ██ ▀▄.▀·
+        ▄▀▀▀█▄ ▄█▀▄ ██▪  ▐█· ▐█.▪█▌▐█▌▐█· ▐█▌▐▀▀▪▄
+        ▐█▄▪▐█▐█▌.▐▌▐█▌▐▌▐█▌ ▐█▌·▐█▄█▌██. ██ ▐█▄▄▌    
+         ▀▀▀▀  ▀█▄▀▪.▀▀▀ ▀▀▀ ▀▀▀  ▀▀▀ ▀▀▀▀▀•  ▀▀▀ 
+
+```
 
 Solitude aims to be a note taking web application storing notes in git repositories.
 
@@ -33,7 +40,7 @@ while editing on solitude application.(Under review)
 - If the master branch is not found, solitude-bot will create
 one.(Under review).
 
-### Branch file structure
+### Repository file structure
 
 - Notes/
   - Note 1/
