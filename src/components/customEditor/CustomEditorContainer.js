@@ -1,14 +1,36 @@
+import React from "react";
 import { connect } from "react-redux";
-import { updateMarkdownValue, updateEditorState } from "../../actions";
 import CustomEditor from "./CustomEditor.js";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateMarkdownValue,
+  updateEditorState,
+  updateNote
+} from "../../actions";
 
-const mapStateToProps = state => ({
-  markdownValue: state.markdownValue
-});
+const CustomEditorContainer = () => {
+  const dispatch = useDispatch();
+  const editorValue = useSelector(state => state.editorValue);
 
-const mapDispatchToProps = dispatch => ({
-  onValueChange: value => dispatch(updateMarkdownValue(value)),
-  onSelectedEditorChange: editor => dispatch(updateEditorState(editor))
-});
+  const onSelectedEditorChange = editor => dispatch(updateEditorState(editor));
+  const onValueChange = value => {
+    dispatch(updateMarkdownValue(value));
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomEditor);
+    if (editorValue.noteId) {
+      // Update the corresponding note value
+      dispatch(
+        updateNote({ text: value, oid: editorValue.noteId, isDirty: true })
+      );
+    }
+  };
+
+  return (
+    <CustomEditor
+      markdownValue={editorValue.markdownValue}
+      onSelectedEditorChange={onSelectedEditorChange}
+      onValueChange={onValueChange}
+    />
+  );
+};
+
+export default CustomEditorContainer;

@@ -29,8 +29,6 @@ const GitModalContainer = ({
     updateRepository({ loading: true });
   }, []);
 
-  // Create a repository if doesn't exist already
-
   return (
     <CustomModal
       isModalOpen={isOpen}
@@ -61,6 +59,8 @@ const GitModalContainer = ({
   );
 };
 
+// TODO
+// Use hooks
 const mapStateToProps = state => ({
   auth: state.auth,
   repository: state.repository

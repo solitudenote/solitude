@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateMarkdownValue, hideModal } from "../../actions";
+import { updateMarkdownValue, hideModal, loadNote } from "../../actions";
 import { buildRestUrl } from "../../utils/utils.js";
 import NoteList from "./NoteList.js";
 
@@ -10,8 +10,8 @@ const NoteListContainer = ({ refetchList }) => {
   const repository = useSelector(state => state.repository);
   const auth = useSelector(state => state.auth);
 
-  const loadNote = item => {
-    dispatch(updateMarkdownValue(item.text));
+  const editNote = item => {
+    dispatch(loadNote(item));
     dispatch(hideModal());
   };
 
@@ -86,7 +86,7 @@ const NoteListContainer = ({ refetchList }) => {
   return (
     <NoteList
       notes={notes}
-      loadNote={loadNote}
+      editNote={editNote}
       deleteNote={deleteNote}
       saveNote={saveNote}
       createNote={createNote}

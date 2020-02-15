@@ -17,7 +17,7 @@ const ResultPane = ({ markdownValue }) => {
 };
 
 const mapStateToProps = state => ({
-  markdownValue: state.markdownValue
+  markdownValue: state.editorValue.markdownValue
 });
 
 export default connect(mapStateToProps)(ResultPane);

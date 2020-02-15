@@ -42,6 +42,7 @@ const FIND_SOLITUDE_NOTE_REPO = gql`
 const FindSolitudeRepository = ({ updateRepository, updateNotesList }) => {
   const [reloadNotes, setReloadNotes] = useState(true);
   const owner = useSelector(state => state.auth.userName);
+  const notes = useSelector(state => state.notes);
   const dispatch = useDispatch();
   const repoName = calculateSolitudeRepoName(owner);
   const variables = {
@@ -51,8 +52,8 @@ const FindSolitudeRepository = ({ updateRepository, updateNotesList }) => {
   };
 
   const { loading, error, data, refetch } = useQuery(FIND_SOLITUDE_NOTE_REPO, {
-    variables,
-    fetchPolicy: "no-cache"
+    variables
+    //,fetchPolicy: "no-cache"
   });
 
   useEffect(() => {
@@ -71,7 +72,12 @@ const FindSolitudeRepository = ({ updateRepository, updateNotesList }) => {
     };
     if (onCompleted || onError) {
       if (onCompleted && !loading && !error) {
-        onCompleted(data);
+        // Don't update state unless there is a change in github repo
+        if (data.repository.notes.entries.length !== notes.length) {
+          onCompleted(data);
+        } else {
+          console.log("Lists are not updated.");
+        }
       } else if (onError && !loading && error) {
         onError(error);
       }
@@ -99,34 +105,3 @@ const FindSolitudeRepository = ({ updateRepository, updateNotesList }) => {
 };
 
 export default FindSolitudeRepository;
-
-// Old list github list
-/*
-const FIND_SOLITUDE_NOTE_REPO = gql`
-  query SolitudeNoteRepo($owner: String!, $name: String!) {
-    repository(owner: $owner, name: $name) {
-      id
-      name
-      nameWithOwner
-      templateRepository {
-        id
-        name
-      }
-      notes: object(expression: "master:notes/") {
-        ... on Tree {
-          entries {
-            oid
-            object {
-              ... on Blob {
-                text
-                commitUrl
-              }
-            }
-            name
-          }
-        }
-      }
-    }
-  }
-`;
-*/

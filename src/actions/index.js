@@ -3,6 +3,12 @@ export const updateMarkdownValue = text => ({
   text
 });
 
+export const loadNote = ({ text, oid }) => ({
+  type: "LOAD_NOTE",
+  text,
+  noteId: oid
+});
+
 export const updateEditorState = editorState => ({
   type: "UPDATE_EDITOR_STATE",
   editorState
@@ -42,4 +48,11 @@ export const registerSolitudeRepo = repo => ({
 export const updateNoteList = list => ({
   type: "UPDATE_NOTE_LIST",
   list
+});
+
+export const updateNote = ({ text, oid, isDirty }) => ({
+  type: "UPDATE_NOTE",
+  text,
+  oid,
+  isDirty
 });

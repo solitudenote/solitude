@@ -35,7 +35,6 @@ const CreateRepository = ({ auth, updateRepository }) => {
   );
 
   useEffect(() => {
-    console.log(data);
     data &&
       data.cloneTemplateRepository &&
       updateRepository(data.cloneTemplateRepository.repository);

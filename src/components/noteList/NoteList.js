@@ -4,7 +4,7 @@ import CustomTag from "../../shared/customTag/CustomTag.js";
 import { Input } from "antd";
 const { Search } = Input;
 
-const NoteList = ({ notes, loadNote, deleteNote, saveNote, createNote }) => {
+const NoteList = ({ notes, editNote, deleteNote, saveNote, createNote }) => {
   const [noteName, setNoteName] = useState("");
   return (
     <div>
@@ -19,7 +19,7 @@ const NoteList = ({ notes, loadNote, deleteNote, saveNote, createNote }) => {
               <CustomTag
                 color="cyan"
                 key="note-edit"
-                onClick={() => loadNote(item)}
+                onClick={() => editNote(item)}
                 label="edit"
               />,
               <CustomTag
