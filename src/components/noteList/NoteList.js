@@ -26,7 +26,7 @@ const NoteList = ({ notes, editNote, deleteNote, saveNote, createNote }) => {
                 key="note-sync"
                 color="green"
                 key="note-save"
-                onClick={() => createNote()}
+                onClick={() => saveNote(item)}
                 label="save"
               />,
               <CustomTag

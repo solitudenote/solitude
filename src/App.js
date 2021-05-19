@@ -29,7 +29,8 @@ function App({ onTokenChange, authToken }) {
           if (error) {
             throw Error(error);
           }
-          console.log(access_token);
+          // Debug
+          // console.log(access_token);
           setToken(access_token);
           // Store token in redux
           onTokenChange(access_token);

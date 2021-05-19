@@ -220,4 +220,7 @@ export const buildRestUrl = (method, owner, repoName, path) => {
   if (method === "CREATE_FILE") {
     return `https://api.github.com/repos/${owner}/${repoName}/contents/${path}`;
   }
+  if (method === "UPDATE_FILE") {
+    return `https://api.github.com/repos/${owner}/${repoName}/contents/${path}`;
+  }
 };

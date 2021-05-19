@@ -47,7 +47,35 @@ const NoteListContainer = ({ refetchList }) => {
   };
 
   const saveNote = item => {
-    console.log("SaveNote");
+    const URI = buildRestUrl(
+      "UPDATE_FILE",
+      repository.nameWithOwner.split("/")[0],
+      repository.nameWithOwner.split("/")[1],
+      `notes/${item.name}/index.md`
+    );
+
+    const headers = {
+      Authorization: `Bearer ${auth.token}`,
+      "Content-Type": "application/json"
+    };
+
+    const updateBody = {
+      message: `Update Note ${item.name}. (solitude-bot)`,
+      content: btoa(item.text),
+      sha: item.sha
+    };
+
+    fetch(URI, {
+      method: "PUT",
+      body: JSON.stringify(updateBody),
+      headers: headers
+    })
+      .then(response => response.text())
+      .then(result => {
+        refetchList();
+        //console.log(result);
+      })
+      .catch(error => console.log("error", error));
   };
 
   const createNote = noteName => {
